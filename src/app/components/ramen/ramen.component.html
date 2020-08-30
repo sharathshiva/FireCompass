@@ -1,0 +1,38 @@
+<body style="background-color: rgb(214, 213, 210);position: absolute;height: 4000px;width: 100%">
+  <mat-form-field class="customsearch" appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search for Country" name="search"
+             [(ngModel)]="searchText" autocomplete="off">
+      <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field><br>
+  <div *ngIf="(ramen | filter: searchText).length === 0"
+       style="padding-top: 100px;padding-left: 100px;background-color: rgb(214, 213, 210);height:800px;width: 1366px">
+    No Such Country Found
+  </div>
+  <div *ngFor="let details of ramen| filter: searchText">
+    <div class="container" style="padding-left: 160px;">
+      <div class="card-wrapper">
+          <div class="card border-success text-center">
+            <div class="card-header">
+              <p style="padding-top: 20px;cursor: pointer;"(click)="getCountryBrands(details.Country)">{{details.Country}}</p>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">{{details.Brand}}</h3>
+              <h3 class="card-subtitle mb-2 text-muted" *ngIf="details.Style!== 'Nan'">
+                {{details.Style}}
+              </h3>
+              <p class="card-text">
+                {{details.Variety}}
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"><ngb-rating [rate]="details.Stars" style="color: gold;font-size: 30px"></ngb-rating></small>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+

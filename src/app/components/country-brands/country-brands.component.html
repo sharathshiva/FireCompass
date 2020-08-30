@@ -1,0 +1,46 @@
+<body style="background-color: rgb(214, 213, 210);height:1300px;position: inherit;width: 1366px">
+    <mat-form-field class="customsearch" appearance="outline" style="width:300px;">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search by Brand or Variety or Style" name="search"
+             [(ngModel)]="searchText" autocomplete="off" >
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <br>
+    <div *ngIf="(ramen | filter: searchText).length === 0" style="padding-top: 100px;padding-left: 100px">
+      No Such Brands Found
+    </div>
+  <div *ngFor="let countryBrand of ramen| filter:searchText">
+    <div class="container" style="padding-left: 160px;">
+      <div class="card-wrapper">
+          <div class="card border-success text-center">
+            <div class="card-header">
+              <div style="padding-top: 20px;">
+                {{countryBrand.Country}}
+                <p *ngIf="countryBrand['Top Ten'].split('#')[1]"
+                   style="background-color: yellow;width: 30px;height: 30px;margin-top: -15%;margin-left: 320px">
+                  {{countryBrand['Top Ten'].split('#')[1]}}
+                </p>
+                <p *ngIf="countryBrand['Top Ten'].split(' ')[0]!== 'NaN'"
+                   style="background-color: yellow;width: 70px;height: 30px;margin-top: -16%;">
+                  {{countryBrand['Top Ten'].split(' ')[0]}}
+                   </p>
+              </div>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">{{countryBrand.Brand}}</h3>
+              <h3 class="card-subtitle mb-2 text-muted" *ngIf="countryBrand.Style!== 'NaN'">
+                {{countryBrand.Style}}
+              </h3>
+              <p class="card-text">
+                {{countryBrand.Variety}}
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted"><ngb-rating [rate]="countryBrand.Stars" style="color: gold;font-size: 30px"></ngb-rating></small>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</body>
+
